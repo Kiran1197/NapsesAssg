@@ -1,0 +1,43 @@
+ <form novalidate #surveyForm="ngForm" (submit)="onSubmit()" (change)="onItemChange()">
+    <mat-toolbar color="primary">
+        <span class="flex-spacer"></span>
+        <button mat-button mat-dialog-close>&times;</button></mat-toolbar>
+        <div class="radio-group" [hidden]="getQuestions">
+            <div>
+                <input type="radio" value="very Much" name="very Much" [(ngModel)]="value">
+                <label for="very Much">very Much</label>
+             </div>
+             <div>
+                <input type="radio" value="Slightly" name="Slightly" [(ngModel)]="value">
+                <label for="Slightly">Slightly</label>
+             </div>
+             <div [hidden]="newData">
+                <input type="radio" value="Dont care" name="Dont care" [(ngModel)]="value">
+                <label for="Dont care">Dont care</label>
+             </div>
+        </div>
+        <div *ngIf="getQuestions">
+            <h1>Thank you. A few more questions please</h1>
+            <p>
+               {{questions[0]}}
+               <textarea maxlength="200" placeholder="Enter text here" (keyup)="AddToTextArea1(questionOne.value)" #questionOne></textarea>  
+            </p>
+            <p>
+               {{questions[1]}}
+               <textarea maxlength="200" placeholder="Enter text here" (keyup)="AddToTextArea2(questionTwo.value)" #questionTwo></textarea>
+            </p>
+           <p>
+            {{questions[2]}}
+            <textarea maxlength="200" placeholder="Enter text here" (keyup)="AddToTextArea3(questionThree.value)"  #questionThree></textarea>
+           </p>
+        </div>
+        <div *ngIf="otherQuestions">
+         <h1>We are sorry we are not very useful to you</h1>
+         <p>
+            What can we build so you would find us useful?
+            <textarea maxlength="200" placeholder="Enter text here"></textarea>  
+         </p>
+        </div>
+{{resOne}}
+        <button type="submit"  [disabled]="surveyForm.form.invalid">Submit Feedback</button>
+</form>
